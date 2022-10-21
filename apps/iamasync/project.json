@@ -1,0 +1,81 @@
+{
+  "name": "iamasync",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/iamasync/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/webpack:webpack",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "compiler": "babel",
+        "outputPath": "dist/apps/iamasync",
+        "index": "apps/iamasync/src/index.html",
+        "baseHref": "/",
+        "main": "apps/iamasync/src/main.tsx",
+        "polyfills": "apps/iamasync/src/polyfills.ts",
+        "tsConfig": "apps/iamasync/tsconfig.app.json",
+        "assets": ["apps/iamasync/src/favicon.ico", "apps/iamasync/src/assets"],
+        "styles": ["apps/iamasync/src/styles.css"],
+        "scripts": [],
+        "webpackConfig": "@nrwl/react/plugins/webpack"
+      },
+      "configurations": {
+        "development": {
+          "extractLicenses": false,
+          "optimization": false,
+          "sourceMap": true,
+          "vendorChunk": true
+        },
+        "production": {
+          "fileReplacements": [
+            {
+              "replace": "apps/iamasync/src/environments/environment.ts",
+              "with": "apps/iamasync/src/environments/environment.prod.ts"
+            }
+          ],
+          "optimization": true,
+          "outputHashing": "all",
+          "sourceMap": false,
+          "namedChunks": false,
+          "extractLicenses": true,
+          "vendorChunk": false
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nrwl/webpack:dev-server",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "iamasync:build",
+        "hmr": true
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "iamasync:build:development"
+        },
+        "production": {
+          "buildTarget": "iamasync:build:production",
+          "hmr": false
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/iamasync/**/*.{ts,tsx,js,jsx}"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "apps/iamasync/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}
