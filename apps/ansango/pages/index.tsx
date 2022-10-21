@@ -1,5 +1,10 @@
 import styles from './index.module.css';
 
+/**
+ *
+ * @returns
+ */
+
 export function Index() {
   /*
    * Replace the elements below with your own.
